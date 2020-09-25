@@ -1,0 +1,24 @@
+#!/bin/bash
+
+subdomain()
+{
+ 
+amass enum -d $1 --passive -o $1-amass.txt
+ 
+subfinder -d $1 -o $1-subfinder.txt
+ 
+python3 ~/tools/subdomain/Sublist3r/sublist3r.py -d $1 -o $1-sublist3r.txt
+ 
+cat $1-amass.txt $1-subfinder.txt $1-sublist3r.txt > final1-$1.txt
+
+cat final1-$1.txt | sort -u > final-$1.txt
+
+rm final1-$1.txt
+mkdir $1-subdomain
+mv  $1-subfinder.txt $1-amass.txt $1-sublist3r.txt final-$1.txt  $1-subdomain
+cd $1-subdomain
+cat final-$1.txt | aquatone
+
+
+}
+
