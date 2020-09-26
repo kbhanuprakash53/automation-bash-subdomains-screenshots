@@ -18,6 +18,7 @@ mkdir $1-subdomain
 mv  $1-subfinder.txt $1-amass.txt $1-sublist3r.txt final-$1.txt  $1-subdomain
 cd $1-subdomain
 cat final-$1.txt | aquatone
+nuclei -l $1 -t subdomain-takeover -t vulnerabilites -t panels -t default-credentials -t technologies -t security-misconfiguration -t cves -t dns -t files -t generic-detections -t tokens -t workflows -o $1-nuclei.txt
 
 
 }
