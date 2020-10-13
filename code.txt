@@ -20,6 +20,24 @@ cd $1-subdomain
 cat final-$1.txt | aquatone
 nuclei -l final-$1.txt -t subdomain-takeover -t vulnerabilites -t panels -t default-credentials -t technologies -t security-misconfiguration -t cves -t dns -t files -t generic-detections -t tokens -t workflows -o $1-nuclei.txt
 
-
+}
+n()
+{
+nuclei -l $1 -t subdomain-takeover -t vulnerabilites -t panels -t default-credentials -t technologies -t security-misconfiguration -t cves -t dns -t files -t generic-detections -t tokens -t workflows -o output.txt
+}
+trial()
+{
+subfinder -dL $1 -o subdomains.txt && subjack -w subdomains.txt |toslack 
+}
+test()
+{
+cat $1 | grep -aoP "(?<=(\"|\'|\`))\/[a-zA-Z0-9_?&=\/\-\#\.]*(?=(\"|\'|\`))" | sort -u
 }
 
+#extensions for dirsearch
+#               -e txt,doc,docx,odt,pdf,rtf,sxw,psw,ppt,pptx,pps,csv,mdb
+#       ffuf command to use
+#               ffuf -w path/to/wordlist.txt -u https :// sub .target. com/FUZZ -mc all -c -v
+#use hakrawler tool in sudo su command then only it works.
+
+#       for google dork there was an amazing website to config all dork in one website  https://dorks.faisalahmed.me/#
